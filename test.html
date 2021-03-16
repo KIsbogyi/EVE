@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eve Plex</title>
+</head>
+<body>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+
+<canvas id="line-chart" width="800" height="350"></canvas>
+
+<script>
+
+var arr = 0
+var pleximus = {{Plex}};
+var string = "{{today}}"
+var res = string.split("@")
+var avgPlex = []
+
+for( var i = 0; i < pleximus.length; i++ ){
+    arr += parseInt(pleximus[i], 10);
+}
+
+for (var j = 0; j < pleximus.length; j++){
+  avgPlex.push(arr/pleximus.length)
+}
+console.log(avgPlex);
+
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: res,
+    datasets: [{
+        data: pleximus,
+        label: "Plex",
+        borderColor: "#3e95cd",
+        fill: false
+      }, {
+        data: avgPlex,
+        pointRadius: 0,
+        label: "avgPlex",
+        borderColor: "#ff0000",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Plex Prices'
+    }
+  }
+});
+
+
+
+
+</script>
+</body>
+</html>
